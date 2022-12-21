@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.21)
 
 project(SkyrimScripting.CMake)
 
+include(GNUInstallDirs)
+
 configure_file(cmake/Config.cmake.in ${PROJECT_NAME}Config.cmake @ONLY)
 
 install(
@@ -11,8 +13,4 @@ install(
     DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake"
 )
 
-install(
-    FILES
-    Skyrim_SKSE_PCH.h
-    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/"
-)
+install(DIRECTORY include DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/..")

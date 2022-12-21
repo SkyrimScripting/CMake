@@ -4,4 +4,8 @@ project(CMakeSKSEDemo VERSION 0.0.1 LANGUAGES CXX)
 
 find_package(SkyrimScripting.CMake CONFIG REQUIRED)
 
-add_skse_plugin(${PROJECT_NAME} MODS_FOLDER "C:/Test" SOURCES plugin.cpp)
+add_skse_plugin(
+    ${PROJECT_NAME}
+    MODS_FOLDER "C:/"
+    SOURCES plugin.cpp
+)
