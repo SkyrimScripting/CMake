@@ -12,8 +12,8 @@ target_precompile_headers(${PROJECT_NAME} PRIVATE PCH.h) # <--- PCH.h is require
 target_deploy_skyrim_mod(${PROJECT_NAME})
 
 
-find_path(TESTING "Skyrim_SKSE_PCH.h")
-message("FOUND? '${TESTING}'")
+find_file(TESTING2 "Skyrim_SKSE_PCH.h")
+message("FOUND? FILE '${TESTING2}'")
 
 
 
