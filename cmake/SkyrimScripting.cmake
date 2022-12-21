@@ -61,7 +61,7 @@ function(target_skyrim_precompile_headers TARGET)
     cmake_parse_arguments(PARSE_ARGV 1 SKYRIM_SCRIPTING_PRECOMPILE_HEADERS "${options}" "${oneValueArgs}" "${multiValueArgs}")
 
     find_file(pch_header "Skyrim_SKSE_PCH.h")
-    if(NOT IS_FILE "${pch_header}")
+    if(NOT EXISTS "${pch_header}")
         message(FATAL_ERROR "target_skyrim_precompile_headers error: Skyrim_SKSE_PCH.h not found via find_file")
     endif()
 
