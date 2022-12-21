@@ -3,3 +3,26 @@
 # CMake modules for Skyrim
 
 ...
+
+## Installation
+
+... vcpkg ...
+
+## Usage
+
+...
+
+### Functions
+
+```cmake
+add_skse_plugin() <---
+
+add_papyrus_scripts()
+aka
+add_pyro()
+
+^ custom targets
+
+target_deploy_to_mods_folder()
+target_papyrus_scripts(...)
+```
