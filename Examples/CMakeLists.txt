@@ -4,9 +4,12 @@ project(CMakeSKSEDemo VERSION 0.0.1 LANGUAGES CXX)
 
 find_package(SkyrimScripting.CMake CONFIG REQUIRED)
 
-add_library(FOO SHARED plugin.cpp)
+find_package(CommonLibSSE CONFIG REQUIRED)
+add_commonlibsse_plugin(${PROJECT_NAME} SOURCES plugin.cpp) # <--- specifies plugin.cpp
+target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_23) # <--- use C++23 standard
+target_precompile_headers(${PROJECT_NAME} PRIVATE PCH.h) # <--- PCH.h is required!
 
-target_deploy_skyrim_mod(FOO)
+target_deploy_skyrim_mod(${PROJECT_NAME})
 
 
 
