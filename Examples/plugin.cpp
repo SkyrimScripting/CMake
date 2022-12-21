@@ -68,6 +68,12 @@ SKSEPluginLoad(const SKSE::LoadInterface* skse) {
     SKSE::Init(skse);
     SetupLog();
 
+    SKSE::GetMessagingInterface()->RegisterListener([](SKSE::MessagingInterface::Message* message) {
+        if (message->type == SKSE::MessagingInterface::kDataLoaded) {
+            RE::ConsoleLog::GetSingleton()->Print("Hello from CMake plugin");
+        }
+    });
+
     // Get a reference to our Event Processor singleton
     auto& eventProcessor = EventProcessor::GetSingleton();
 

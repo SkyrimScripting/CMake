@@ -2,10 +2,7 @@ cmake_minimum_required(VERSION 3.21)
 
 project(CMakeSKSEDemo VERSION 0.0.1 LANGUAGES CXX)
 
-# set(CMAKE_FIND_DEBUG_MODE 1)
 find_package(SkyrimScripting.CMake CONFIG REQUIRED)
-
-skyrim_scripting()
 
 # Set <DEPLOY_ROOT> to set the path of a mod to deploy files to.
 # Defaults to the value of environment variable SKYRIM_MODS_FOLDER
