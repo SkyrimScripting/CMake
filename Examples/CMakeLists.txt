@@ -4,7 +4,9 @@ project(CMakeSKSEDemo VERSION 0.0.1 LANGUAGES CXX)
 
 find_package(SkyrimScripting.CMake CONFIG REQUIRED)
 
-target_deploy_skyrim_mod(FOO DESTINATION foo)
+add_library(FOO SHARED plugin.cpp)
+
+target_deploy_skyrim_mod(FOO)
 
 
 
