@@ -1,0 +1,25 @@
+{
+  "default-registry": {
+    "kind": "git",
+    "repository": "https://github.com/microsoft/vcpkg.git",
+    "baseline": "cc288af760054fa489574bd8e22d05aa8fa01e5c"
+  },
+  "registries": [
+    {
+      "kind": "git",
+      "repository": "https://gitlab.com/colorglass/vcpkg-colorglass",
+      "baseline": "6fb127f7d425ae3cf3fab0f79005d907c885c0d8",
+      "packages": [
+        "commonlibsse-ng"
+      ]
+    },
+    {
+      "kind": "git",
+      "repository": "file://c:/Code/SkyrimScripting/vcpkg_Examples",
+      "baseline": "07094e453ad9aaa6a90595b793a0a4a24c615e8e",
+      "packages": [
+        "skyrimscripting-cmake"
+      ]
+    }
+  ]
+}
