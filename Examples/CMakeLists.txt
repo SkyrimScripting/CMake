@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.21)
 project(CMakeSKSEDemo VERSION 0.0.1 LANGUAGES CXX)
 
 set(CMAKE_FIND_DEBUG_MODE 1)
-find_package(SkyrimScripting.CMake)
+find_package(SkyrimScriptingCMake CONFIG REQUIRED)
 
 # skyrim_scripting()
 

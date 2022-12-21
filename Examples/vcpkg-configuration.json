@@ -16,7 +16,7 @@
     {
       "kind": "git",
       "repository": "file://c:/Code/SkyrimScripting/vcpkg_Examples",
-      "baseline": "07094e453ad9aaa6a90595b793a0a4a24c615e8e",
+      "baseline": "432f6934289dc0d598aa5d177a42d9f14bcbf55f",
       "packages": [
         "skyrimscripting-cmake"
       ]
