@@ -75,3 +75,29 @@ function(target_skyrim_precompile_headers TARGET)
         target_precompile_headers(${TARGET} PRIVATE "${pch_header}")
     endif()
 endfunction()
+
+# `add_skse_plugin` wraps calls to `add_commonlibsse_plugin` along with configuration for mod folder deployment et al.
+function(add_skse_plugin TARGET)
+    set(options)
+    set(oneValueArgs DESTINATION MODS_FOLDER)
+    set(multiValueArgs)
+    cmake_parse_arguments(PARSE_ARGV 1 SKYRIM_SCRIPTING_SKSE_PLUGIN "${options}" "${oneValueArgs}" "${multiValueArgs}")
+
+    find_package(CommonLibSSE CONFIG REQUIRED)
+    add_commonlibsse_plugin(${TARGET} ${ARGN})
+    target_compile_features(${TARGET} PRIVATE cxx_std_23)
+    target_skyrim_precompile_headers(${TARGET})
+
+    # MODS_FOLDER is just a friendly alias for DESTINATION
+    if(DEFINED SKYRIM_SCRIPTING_SKSE_PLUGIN_DESTINATION)
+        set(mods_folder "${SKYRIM_SCRIPTING_SKSE_PLUGIN_DESTINATION}")
+    elseif(DEFINED SKYRIM_SCRIPTING_SKSE_PLUGIN_MODS_FOLDER)
+        set(mods_folder "${SKYRIM_SCRIPTING_SKSE_PLUGIN_MODS_FOLDER}")
+    endif()
+
+    if(DEFINED mods_folder)
+        target_skyrim_mods_folder(${TARGET} DESTINATION "${mods_folder}")
+    else()
+        target_skyrim_mods_folder(${TARGET})
+    endif()
+endfunction()
