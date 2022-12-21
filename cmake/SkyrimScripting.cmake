@@ -16,7 +16,6 @@ function(target_skyrim_mods_folder TARGET)
     endif()
 
     if(DEFINED SKYRIM_SCRIPTING_MODS_FOLDER_DESTINATION)
-        message("DEST: ${SKYRIM_SCRIPTING_MODS_FOLDER_DESTINATION}")
         if(IS_DIRECTORY "${SKYRIM_SCRIPTING_MODS_FOLDER_DESTINATION}")
             set(mods_folder "${SKYRIM_SCRIPTING_MODS_FOLDER_DESTINATION}")
         else()
@@ -79,12 +78,30 @@ endfunction()
 # `add_skse_plugin` wraps calls to `add_commonlibsse_plugin` along with configuration for mod folder deployment et al.
 function(add_skse_plugin TARGET)
     set(options)
-    set(oneValueArgs DESTINATION MODS_FOLDER)
-    set(multiValueArgs)
+    set(oneValueArgs DESTINATION MODS_FOLDER NAME AUTHOR EMAIL VERSION)
+    set(multiValueArgs SOURCES)
     cmake_parse_arguments(PARSE_ARGV 1 SKYRIM_SCRIPTING_SKSE_PLUGIN "${options}" "${oneValueArgs}" "${multiValueArgs}")
 
+    # NAME AUTHOR EMAIL VERSION are all directly supported (and SOURCES) so they don't have to come last (with ${ARGN})
+    set(plugin_name ${TARGET})
+    if(DEFINED SKYRIM_SCRIPTING_SKSE_PLUGIN_NAME)
+        set(plugin_name "${SKYRIM_SCRIPTING_SKSE_PLUGIN_NAME}")
+    endif()
+    set(plugin_version ${PROJECT_VERSION})
+    if(DEFINED SKYRIM_SCRIPTING_SKSE_PLUGIN_VERSION)
+        set(plugin_version "${SKYRIM_SCRIPTING_SKSE_PLUGIN_VERSION}")
+    endif()
+
     find_package(CommonLibSSE CONFIG REQUIRED)
-    add_commonlibsse_plugin(${TARGET} ${ARGN})
+    add_commonlibsse_plugin(
+        ${TARGET}
+        NAME "${plugin_name}"
+        VERSION "${project_vesion}"
+        AUTHOR "${SKYRIM_SCRIPTING_SKSE_PLUGIN_AUTHOR}"
+        EMAIL "${SKYRIM_SCRIPTING_SKSE_PLUGIN_EMAIL}"
+        SOURCES ${SKYRIM_SCRIPTING_SKSE_PLUGIN_SOURCES}
+        ${ARGN}
+    )
     target_compile_features(${TARGET} PRIVATE cxx_std_23)
     target_skyrim_precompile_headers(${TARGET})
 
