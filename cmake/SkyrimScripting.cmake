@@ -93,6 +93,16 @@ function(add_skse_plugin TARGET)
     endif()
 
     find_package(CommonLibSSE CONFIG REQUIRED)
+    message([=[
+        add_commonlibsse_plugin
+            ${TARGET}
+            NAME "${plugin_name}"
+            VERSION "${project_vesion}"
+            AUTHOR "${SKYRIM_SCRIPTING_SKSE_PLUGIN_AUTHOR}"
+            EMAIL "${SKYRIM_SCRIPTING_SKSE_PLUGIN_EMAIL}"
+            SOURCES ${SKYRIM_SCRIPTING_SKSE_PLUGIN_SOURCES}
+            ${ARGN}
+    ]=])
     add_commonlibsse_plugin(
         ${TARGET}
         NAME "${plugin_name}"
