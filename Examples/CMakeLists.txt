@@ -7,13 +7,12 @@ find_package(SkyrimScripting.CMake CONFIG REQUIRED)
 find_package(CommonLibSSE CONFIG REQUIRED)
 add_commonlibsse_plugin(${PROJECT_NAME} SOURCES plugin.cpp) # <--- specifies plugin.cpp
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_23) # <--- use C++23 standard
-target_precompile_headers(${PROJECT_NAME} PRIVATE PCH.h) # <--- PCH.h is required!
+# target_precompile_headers(${PROJECT_NAME} PRIVATE PCH.h) # <--- PCH.h is required!
 
 target_deploy_skyrim_mod(${PROJECT_NAME})
+target_skyrim_precompile_headers(${PROJECT_NAME})
 
 
-find_file(TESTING2 "Skyrim_SKSE_PCH.h")
-message("FOUND? FILE '${TESTING2}'")
 
 
 
