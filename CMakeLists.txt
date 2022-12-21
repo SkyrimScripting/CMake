@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.21)
 
 project(SkyrimScripting.CMake)
 
+install(DIRECTORY include DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/..")
+
 configure_file(cmake/Config.cmake.in ${PROJECT_NAME}Config.cmake @ONLY)
 
 install(
