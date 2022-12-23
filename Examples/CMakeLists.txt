@@ -6,6 +6,6 @@ find_package(SkyrimScripting.CMake CONFIG REQUIRED)
 
 add_skse_plugin(
     ${PROJECT_NAME}
-    # SKYRIM_FOLDER "C:/GOG/Games/Skyrim Anniversary Edition"
+    DATA_FOLDER "C:/GOG/Games/Skyrim Anniversary Edition/Foo"
     SOURCES plugin.cpp
 )
