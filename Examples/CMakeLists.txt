@@ -4,12 +4,5 @@ project(CMakeSKSEDemo VERSION 0.0.1 LANGUAGES CXX)
 
 find_package(SkyrimScripting.CMake CONFIG REQUIRED)
 
-add_skyrim_mod("My Mod Name")
-
-add_papyrus_project(MOD "My Mod Name")
-
-add_skse_plugin(
-    ${PROJECT_NAME}
-    DATA_FOLDER "C:/GOG/Games/Skyrim Anniversary Edition/Data"
-    SOURCES plugin.cpp
-)
+set(SKYRIMSCRIPTING_DEBUG true)
+add_skse_plugin(${PROJECT_NAME} SOURCES plugin.cpp)
