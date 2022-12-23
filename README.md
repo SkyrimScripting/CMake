@@ -2,4 +2,16 @@
 
 # CMake modules for Skyrim
 
-`< documentation incoming ... >`
+> Official CMake modules for Skyrim Scripting tutorials
+
+- [CMake modules for Skyrim](#cmake-modules-for-skyrim)
+  - [Why?](#why)
+  - [Installation](#installation)
+  - [`v1`](#v1)
+
+## Why?
+
+## Installation
+
+## `v1`
+
