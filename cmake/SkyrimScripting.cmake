@@ -143,29 +143,7 @@ function(add_skse_plugin TARGET)
     cmake_parse_arguments(PARSE_ARGV 1 SKYRIM_SCRIPTING_SKSE_PLUGIN "${options}" "${oneValueArgs}" "${multiValueArgs}")
 
     find_package(CommonLibSSE CONFIG REQUIRED)
-<<<<<<< HEAD
     add_commonlibsse_plugin(${TARGET} ${SKYRIM_SCRIPTING_SKSE_PLUGIN_UNPARSED_ARGUMENTS})
-=======
-    message([=[
-        add_commonlibsse_plugin
-            ${TARGET}
-            NAME "${plugin_name}"
-            VERSION "${project_vesion}"
-            AUTHOR "${SKYRIM_SCRIPTING_SKSE_PLUGIN_AUTHOR}"
-            EMAIL "${SKYRIM_SCRIPTING_SKSE_PLUGIN_EMAIL}"
-            SOURCES ${SKYRIM_SCRIPTING_SKSE_PLUGIN_SOURCES}
-            ${ARGN}
-    ]=])
-    add_commonlibsse_plugin(
-        ${TARGET}
-        NAME "${plugin_name}"
-        VERSION "${project_vesion}"
-        AUTHOR "${SKYRIM_SCRIPTING_SKSE_PLUGIN_AUTHOR}"
-        EMAIL "${SKYRIM_SCRIPTING_SKSE_PLUGIN_EMAIL}"
-        SOURCES ${SKYRIM_SCRIPTING_SKSE_PLUGIN_SOURCES}
-        ${ARGN}
-    )
->>>>>>> 524e2958cb64294bbd0f47aed1ba3b939c509b8f
     target_compile_features(${TARGET} PRIVATE cxx_std_23)
     target_skyrim_precompile_headers(${TARGET})
 
