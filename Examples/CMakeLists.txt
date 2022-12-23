@@ -6,6 +6,5 @@ find_package(SkyrimScripting.CMake CONFIG REQUIRED)
 
 add_skse_plugin(
     ${PROJECT_NAME}
-    MODS_FOLDER "C:/"
     SOURCES plugin.cpp
 )

@@ -4,7 +4,7 @@
 # target_skyrim_mods_folder(mytarget DESTINATION "C:/path/to/mods")
 # ```
 #
-# Defaults to the `CMAKE_SKYRIM_MODS` environment variable, if set.
+# Defaults to the `CMAKE_SKYRIM_MODS_FOLDER` environment variable, if set.
 function(target_skyrim_mods_folder TARGET)
     set(options)
     set(oneValueArgs DESTINATION)
@@ -22,14 +22,14 @@ function(target_skyrim_mods_folder TARGET)
             message(FATAL_ERROR "Invalid target_skyrim_mods_folder DESTINATION provided (directory does not exist) '${SKYRIM_SCRIPTING_MODS_FOLDER_DESTINATION}'")
         endif()
     else()
-        if(DEFINED ENV{CMAKE_SKYRIM_MODS})
-            if(IS_DIRECTORY "$ENV{CMAKE_SKYRIM_MODS}")
-                set(mods_folder "$ENV{CMAKE_SKYRIM_MODS}")
+        if(DEFINED ENV{CMAKE_SKYRIM_MODS_FOLDER})
+            if(IS_DIRECTORY "$ENV{CMAKE_SKYRIM_MODS_FOLDER}")
+                set(mods_folder "$ENV{CMAKE_SKYRIM_MODS_FOLDER}")
             else()
-                message(FATAL_ERROR "Invalid target_skyrim_mods_folder invocation. CMAKE_SKYRIM_MODS environment variable (directory does not exist) '$ENV{CMAKE_SKYRIM_MODS}'")
+                message(FATAL_ERROR "Invalid target_skyrim_mods_folder invocation. CMAKE_SKYRIM_MODS_FOLDER environment variable (directory does not exist) '$ENV{CMAKE_SKYRIM_MODS_FOLDER}'")
             endif()
         else()
-            message(FATAL_ERROR "Invalid target_skyrim_mods_folder invocation. No DESTINATION provided and no CMAKE_SKYRIM_MODS environment variable defined.")
+            message(FATAL_ERROR "Invalid target_skyrim_mods_folder invocation. No DESTINATION provided and no CMAKE_SKYRIM_MODS_FOLDER environment variable defined.")
         endif()
     endif()
 
@@ -37,6 +37,66 @@ function(target_skyrim_mods_folder TARGET)
     message("Skyrim mod folder: ${mod_folder}")
 
     set(dll_folder "${mod_folder}/SKSE/Plugins")
+    add_custom_command(TARGET ${TARGET} POST_BUILD
+        COMMAND "${CMAKE_COMMAND}" -E make_directory "${dll_folder}"
+        COMMAND "${CMAKE_COMMAND}" -E copy_if_different "$<TARGET_FILE:${TARGET}>" "${dll_folder}/$<TARGET_FILE_NAME:${TARGET}>"
+        VERBATIM
+    )
+
+    string(TOLOWER "${CMAKE_BUILD_TYPE}" build_type)
+    if(build_type STREQUAL debug)
+        add_custom_command(TARGET ${TARGET} POST_BUILD
+            COMMAND "${CMAKE_COMMAND}" -E copy_if_different "$<TARGET_PDB_FILE:${TARGET}>" "${dll_folder}/$<TARGET_PDB_FILE_NAME:${TARGET}>"
+            VERBATIM
+        )
+    endif()
+endfunction()
+
+# Provide a folder to auto-deploy your mod to after build
+#
+# ```
+# target_skyrim_data_folder(mytarget SKYRIM_FOLDER "C:/Program Files (x86)/Steam/steamapps/common/Skyrim Special Edition")
+# target_skyrim_data_folder(mytarget DATA_FOLDER "C:/Program Files (x86)/Steam/steamapps/common/Skyrim Special Edition/Data")
+# ```
+#
+# Defaults to using the `CMAKE_SKYRIM_FOLDER` environment variable, if set. Deploys to `$ENV{CMAKE_SKYRIM_FOLDER}/Data`
+function(target_skyrim_data_folder TARGET)
+    set(options)
+    set(oneValueArgs SKYRIM_FOLDER DATA_FOLDER)
+    set(multiValueArgs)
+    cmake_parse_arguments(PARSE_ARGV 1 SKYRIM_SCRIPTING_DATA_FOLDER "${options}" "${oneValueArgs}" "${multiValueArgs}")
+
+    if(NOT TARGET "${TARGET}")
+        message(FATAL_ERROR "Invalid target_skyrim_data_folder invocation. Target is not valid target: '${TARGET}'")
+    endif()
+
+    if(DEFINED SKYRIM_SCRIPTING_DATA_FOLDER_SKYRIM_FOLDER)
+        if(IS_DIRECTORY "${SKYRIM_SCRIPTING_DATA_FOLDER_SKYRIM_FOLDER}/Data")
+            set(data_folder "${SKYRIM_SCRIPTING_DATA_FOLDER_SKYRIM_FOLDER}/Data")
+        else()
+            message(FATAL_ERROR "Invalid target_skyrim_data_folder SKYRIM_FOLDER provided (Data directory does not exist) '${SKYRIM_SCRIPTING_DATA_FOLDER_DESTINATION}/Data'")
+        endif()
+    elseif(DEFINED SKYRIM_SCRIPTING_DATA_FOLDER_DATA_FOLDER)
+        if(IS_DIRECTORY "${SKYRIM_SCRIPTING_DATA_FOLDER_DATA_FOLDER}")
+            set(data_folder "${SKYRIM_SCRIPTING_DATA_FOLDER_DATA_FOLDER}")
+        else()
+            message(FATAL_ERROR "Invalid target_skyrim_data_folder DATA_FOLDER provided (directory does not exist) '${SKYRIM_SCRIPTING_DATA_FOLDER_DESTINATION}'")
+        endif()
+    else()
+        if(DEFINED ENV{CMAKE_SKYRIM_FOLDER})
+            if(IS_DIRECTORY "$ENV{CMAKE_SKYRIM_FOLDER}/Data")
+                set(data_folder "$ENV{CMAKE_SKYRIM_FOLDER}/Data")
+            else()
+                message(FATAL_ERROR "Invalid target_skyrim_data_folder invocation. CMAKE_SKYRIM_FOLDER environment variable (Data directory does not exist) '$ENV{CMAKE_SKYRIM_FOLDER}/Data'")
+            endif()
+        else()
+            message(FATAL_ERROR "Invalid target_skyrim_data_folder invocation. No SKYRIM_FOLDER or DATA_FOLDER provided and no CMAKE_SKYRIM_FOLDER environment variable defined.")
+        endif()
+    endif()
+
+    message("Skyrim Data folder: ${data_folder}")
+
+    set(dll_folder "${data_folder}/SKSE/Plugins")
     add_custom_command(TARGET ${TARGET} POST_BUILD
         COMMAND "${CMAKE_COMMAND}" -E make_directory "${dll_folder}"
         COMMAND "${CMAKE_COMMAND}" -E copy_if_different "$<TARGET_FILE:${TARGET}>" "${dll_folder}/$<TARGET_FILE_NAME:${TARGET}>"
