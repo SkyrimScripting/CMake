@@ -1,10 +1,14 @@
+set(SKYRIM_SCRIPTING_CMAKE_DEBUG_VERSION 0.0.1)
+
 # Debug output
-# Displayed when `set(SKYRIMSCRIPTING_DEBUG true)`
-function(__skyrimScriptingDebug text)
-    if(SKYRIMSCRIPTING_DEBUG)
-        message(STATUS "${text}")
+# Displayed when `set(SKYRIM_SCRIPTING_CMAKE_DEBUG true)` or `set(SKYRIM_SCRIPTING_DEBUG true)`
+function(__skyrimScriptingCMakeDebug text)
+    if(SKYRIM_SCRIPTING_CMAKE_DEBUG OR SKYRIM_SCRIPTING_DEBUG)
+        message(STATUS "[Debug] ${text}")
     endif()
 endfunction()
+
+__skyrimScriptingCMakeDebug("Loading SkyrimScripting.CMake version ${SKYRIM_SCRIPTING_CMAKE_DEBUG_VERSION}")
 
 # Provide a folder to auto-deploy your mod to after build
 #
@@ -14,7 +18,7 @@ endfunction()
 #
 # Defaults to the `CMAKE_SKYRIM_MODS_FOLDER` environment variable, if set.
 function(target_skyrim_mods_folder TARGET)
-    __skyrimScriptingDebug("target_skyrim_mods_folder(${ARGV})")
+    __skyrimScriptingCMakeDebug("target_skyrim_mods_folder(${ARGV})")
 
     set(options)
     set(oneValueArgs MODS_FOLDER)
@@ -71,7 +75,7 @@ endfunction()
 #
 # Defaults to using the `CMAKE_SKYRIM_FOLDER` environment variable, if set. Deploys to `$ENV{CMAKE_SKYRIM_FOLDER}/Data`
 function(target_skyrim_data_folder TARGET)
-    __skyrimScriptingDebug("target_skyrim_data_folder(${ARGV})")
+    __skyrimScriptingCMakeDebug("target_skyrim_data_folder(${ARGV})")
 
     set(options)
     set(oneValueArgs SKYRIM_FOLDER DATA_FOLDER)
@@ -126,7 +130,7 @@ endfunction()
 
 # Sets `target_precompile_headers` on the target to use a provided precompile header file.
 function(target_skyrim_precompile_headers TARGET)
-    __skyrimScriptingDebug("target_skyrim_precompile_headers(${ARGV})")
+    __skyrimScriptingCMakeDebug("target_skyrim_precompile_headers(${ARGV})")
 
     set(options PUBLIC PRIVATE INTERFACE)
     set(oneValueArgs)
@@ -151,7 +155,7 @@ endfunction()
 
 # `add_skse_plugin_core` wraps calls to `add_commonlibsse_plugin` and find_package, compile features, precompile headers
 function(add_skse_plugin_core TARGET)
-    __skyrimScriptingDebug("add_skse_plugin_core(${ARGV})")
+    __skyrimScriptingCMakeDebug("add_skse_plugin_core(${ARGV})")
 
     set(options NO_PCH)
     set(oneValueArgs)
@@ -174,7 +178,7 @@ endfunction()
 
 # `add_skse_plugin` is `add_skse_plugin_core` plus: deployment to mods folder, packaging for release, and more! (TODO!)
 function(add_skse_plugin TARGET)
-    __skyrimScriptingDebug("add_skse_plugin(${ARGV})")
+    __skyrimScriptingCMakeDebug("add_skse_plugin(${ARGV})")
 
     set(options NO_PCH)
     set(oneValueArgs MODS_FOLDER DATA_FOLDER SKYRIM_FOLDER)
