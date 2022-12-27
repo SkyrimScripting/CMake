@@ -8,15 +8,15 @@
     {
       "kind": "git",
       "repository": "https://gitlab.com/colorglass/vcpkg-colorglass",
-      "baseline": "6fb127f7d425ae3cf3fab0f79005d907c885c0d8",
+      "baseline": "ef8d43afe4d26e842de3d034bff1081cb7990f07",
       "packages": [
         "commonlibsse-ng"
       ]
     },
     {
       "kind": "git",
-      "repository": "file://c:/Code/SkyrimScripting/vcpkg_Examples",
-      "baseline": "c5145aff4a73d89df61022341fccc70e9bcc0ae9",
+      "repository": "https://github.com/SkyrimScripting/vcpkg.git",
+      "baseline": "f1f03d792aaccccd2df1334e4b09955f667f7214",
       "packages": [
         "skyrimscripting-cmake"
       ]
