@@ -1,0 +1,25 @@
+if(NOT DEFINED SKYRIMSCRIPTING_DEBUG_LEVEL)
+    # the message level used by __skyrimscripting_debug()
+    set(SKYRIMSCRIPTING_DEBUG_LEVEL TRACE)
+endif()
+
+macro(__skyrimscripting_debug text)
+    if(SKYRIMSCRIPTING_DEBUG)
+        message(${SKYRIMSCRIPTING_DEBUG_LEVEL} "${text}")
+    endif()
+endmacro()
+
+macro(__skyrimscripting_error text)
+    message(FATAL_ERROR "[SKYRIMSCRIPTING ERROR]: ${text}")
+endmacro()
+
+macro(__skyrimscripting_debug_fn)
+     __skyrimscripting_debug("${CMAKE_CURRENT_FUNCTION}(${ARGV})")
+endmacro()
+
+macro(__skyrimscripting_arg_parse)
+    cmake_parse_arguments(_skyrimscripting_arg_parse "" "" "FLAG;VALUE;MULTI;ARGS" ${ARGN})
+    __skyrimscripting_debug_fn(${_skyrimscripting_arg_parse_ARGS})
+    cmake_parse_arguments("${CMAKE_CURRENT_FUNCTION}" "${_skyrimscripting_arg_parse_FLAG}" "${_skyrimscripting_arg_parse_VALUE}" "${_skyrimscripting_arg_parse_MULTI}" ${_skyrimscripting_arg_parse_ARGS})
+    set(arg_prefix "${CMAKE_CURRENT_FUNCTION}_")
+endmacro()
