@@ -69,7 +69,7 @@ In your own projects, add `SkyrimScripting.CMake` by adding the following 2x fil
     "version-string": "0.0.1",
     "dependencies": [
         "commonlibsse-ng",
-        { "name": "skyrimscripting-cmake", "version<=": "0.0.1" }
+        { "name": "skyrimscripting-cmake", "version>=": "0.0.1" }
     ]
 }
 ```
