@@ -137,7 +137,12 @@ function(target_skyrim_precompile_headers TARGET)
     set(multiValueArgs)
     cmake_parse_arguments(PARSE_ARGV 1 SKYRIM_SCRIPTING_PRECOMPILE_HEADERS "${options}" "${oneValueArgs}" "${multiValueArgs}")
 
-    find_file(pch_header "SkyrimScripting.CMake/Skyrim_SKSE_PCH.h")
+    if(DEFINED SKYRIMSCRIPTING_PCH_PATH AND EXISTS "${SKYRIMSCRIPTING_PCH_PATH}")
+        set(pch_header "${SKYRIMSCRIPTING_PCH_PATH}")
+    else()
+        find_file(pch_header "SkyrimScripting.CMake/Skyrim_SKSE_PCH.h")
+    endif()
+    
     if(NOT EXISTS "${pch_header}")
         message(FATAL_ERROR "target_skyrim_precompile_headers error: Skyrim_SKSE_PCH.h not found via find_file")
     endif()

@@ -1,8 +1,9 @@
 {
     "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg/master/scripts/vcpkg.schema.json",
-    "name": "hello-world",
+    "name": "skyrimscripting-cmake-examples",
     "version-string": "0.0.1",
     "dependencies": [
-        "commonlibsse-ng"
+        "commonlibsse-ng",
+        { "name": "skyrimscripting-plugin", "version>=": "0.1.0#1" }
     ]
 }
