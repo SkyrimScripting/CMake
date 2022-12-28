@@ -5,9 +5,13 @@ function(skyrim_mod)
         ARGS ${ARGV}
     )
 
-    add_custom_target(SomeProject)
-    set_property(TARGET SomeProject PROPERTY MOD_NAME "... Some Project")
-    # add_custom_target(${target})
+    string(REGEX REPLACE "[^a-zA-Z0-9]" "" target "${PROJECT_NAME}")
+
+    add_custom_target("${target}" COMMAND echo "Hello from ${target}!")
+    message("ADDED TARGET: ${target}")
+
+    set_property(TARGET "${target}" PROPERTY MOD_NAME "${PROJECT_NAME}")
+    set_property(TARGET "${target}" PROPERTY MOD_VERSION "${PROJECT_VERSION}")
 endfunction()
 
 

@@ -15,5 +15,8 @@ install(
 
 install(DIRECTORY SkyrimScripting.CMake DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/..")
 
-# add_subdirectory(spec)
+if(NOT DISABLE_CSPEC)
+    add_subdirectory(spec)
+endif()
+
 add_subdirectory(Examples)
