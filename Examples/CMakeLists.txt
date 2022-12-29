@@ -6,3 +6,4 @@ include("${CMAKE_SOURCE_DIR}/cmake/SkyrimScripting.cmake")
 
 # add_subdirectory(JustOneSKSEPlugin)
 add_subdirectory(SkyrimModWithJustFiles)
+add_subdirectory(CopyFilesToSkyrimModFolder)

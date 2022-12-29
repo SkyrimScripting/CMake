@@ -7,4 +7,5 @@ include("$ENV{MROWRPURR_PROJECTS}/CSpec/cmake/CSpec.cmake")
 add_cspec_suite(
     skyrim_mod.spec.cmake
     add_skse_library.spec.cmake
+    copy_files_to_skyrim_mod_folder.spec.cmake
 )

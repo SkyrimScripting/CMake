@@ -29,3 +29,6 @@ function(it_accepts_project_values_via_arguments)
     expect("Awesome Mod" to be property MOD_NAME of TARGET ThisIsTheTarget)
     expect(69.420 to be property MOD_VERSION of TARGET ThisIsTheTarget)
 endfunction()
+
+function(xit_can_deploy_provided_files_to_a_provided_folder_path)
+endfunction()

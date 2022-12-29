@@ -2,7 +2,7 @@ include("${CMAKE_CURRENT_LIST_DIR}/SpecHelper.cmake")
 
 # add_skse_library() specs
 
-function(it_can_compile_an_SKSE_plugin)
+function(xit_can_compile_an_SKSE_plugin)
     message("${CMAKE_SOURCE_DIR}")
 
     create_project(path [=[
